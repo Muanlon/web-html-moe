@@ -1,0 +1,69 @@
+  /* ============================================================
+     开始页
+     ============================================================ */
+  #pageStart .title-wrap { text-align:center; margin-bottom:40px; position:relative; }
+  #pageStart .title {
+    font-size:clamp(60px,15vw,120px); letter-spacing:clamp(18px,5vw,46px);
+    color:#eae2d2; font-weight:400; position:relative;
+    text-shadow:0 0 40px rgba(180,40,50,.55), 0 0 90px rgba(120,20,30,.45);
+    animation:titleBreath 5s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%,100%{ text-shadow:0 0 40px rgba(180,40,50,.55), 0 0 90px rgba(120,20,30,.45); letter-spacing:clamp(18px,5vw,46px); }
+    50%{ text-shadow:0 0 55px rgba(220,60,60,.8), 0 0 110px rgba(160,30,40,.6); letter-spacing:clamp(20px,5.4vw,50px); }
+  }
+  #pageStart .title::after {
+    content:""; position:absolute; left:50%; bottom:-18px; transform:translateX(-50%);
+    width:60%; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(200,60,70,.7),transparent);
+  }
+  #pageStart .subtitle { margin-top:38px; font-size:12px; letter-spacing:14px; color:#7a7266; opacity:.85; }
+  #pageStart .ink-seal { position:absolute; right:-20px; top:-30px;
+    width:64px; height:64px; border:1px solid rgba(180,40,50,.5); transform:rotate(8deg);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; color:rgba(200,60,70,.85); letter-spacing:0;
+    box-shadow:0 0 20px rgba(180,40,50,.25), inset 0 0 14px rgba(180,40,50,.15);
+  }
+  .start-btn { margin-top:6px; padding:15px 72px; font-size:15px; letter-spacing:10px;
+    color:#e2d6b8; background:rgba(20,20,26,.55); border:1px solid rgba(212,200,168,.32);
+    border-radius:2px; transition:all .35s cubic-bezier(.2,.8,.3,1); cursor:pointer;
+    position:relative; overflow:hidden; backdrop-filter:blur(4px); }
+  .start-btn::before { content:""; position:absolute; inset:0;
+    background:linear-gradient(90deg,transparent,rgba(200,60,70,.18),transparent);
+    transform:translateX(-100%); transition:transform .6s; }
+  .start-btn:hover::before { transform:translateX(100%); }
+  .start-btn:hover, .start-btn:active {
+    border-color:rgba(212,200,168,.85); letter-spacing:14px;
+    box-shadow:0 0 40px rgba(180,40,50,.35), inset 0 0 20px rgba(180,40,50,.1); }
+  #pageStart .version { position:absolute; bottom:20px; right:24px;
+    font-size:10px; color:#48443c; letter-spacing:3px; }
+
+  /* ============================================================
+     主菜单
+     ============================================================ */
+  #pageMenu .menu-title { font-size:20px; letter-spacing:14px; color:#d4c8a8;
+    margin-bottom:6px; opacity:.9; }
+  #pageMenu .menu-sub { font-size:10px; letter-spacing:8px; color:#5e584c; margin-bottom:46px; }
+  .menu-list { display:flex; flex-direction:column; gap:4px; width:min(80vw,320px); }
+  .menu-item { position:relative; padding:17px 20px; text-align:center;
+    font-size:14px; letter-spacing:7px; color:#a8a094; cursor:pointer;
+    border:1px solid transparent; border-radius:2px; transition:all .28s; }
+  .menu-item::before, .menu-item::after {
+    content:""; position:absolute; top:50%; width:0; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(200,60,70,.8));
+    transition:width .3s; }
+  .menu-item::before { left:0; transform:translateY(-50%); }
+  .menu-item::after { right:0; transform:translateY(-50%);
+    background:linear-gradient(90deg,rgba(200,60,70,.8),transparent); }
+  .menu-item:hover, .menu-item:active {
+    color:#eae2d2; letter-spacing:11px; background:rgba(180,40,50,.07); }
+  .menu-item:hover::before, .menu-item:hover::after { width:36px; }
+  .menu-item.selected {
+    color:#eae2d2; letter-spacing:11px; background:rgba(180,40,50,.07); }
+  .menu-item.selected::before, .menu-item.selected::after { width:36px; }
+  #pageMenu.menu-entering .menu-item:hover:not(.selected) {
+    color:#a8a094; letter-spacing:7px; background:transparent; }
+  #pageMenu.menu-entering .menu-item:hover:not(.selected)::before,
+  #pageMenu.menu-entering .menu-item:hover:not(.selected)::after { width:0; }
+  .menu-item.disabled { opacity:.25; pointer-events:none; }
+  .menu-item .hint { display:block; font-size:9px; letter-spacing:3px; color:#4e483c; margin-top:7px; }

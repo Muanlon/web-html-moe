@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>墨厄 · 视觉增强版</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/menu.css">
+<link rel="stylesheet" href="css/bonfire.css">
+<link rel="stylesheet" href="css/battle.css">
+</head>
+<body>
+<div id="app">
+  <!-- 全局氛围 -->
+  <div class="bg-base"></div>
+  <div class="bg-ink"></div>
+  <div class="mist"></div>
+
+  <!-- ============ 开始页 ============ -->
+  <section class="page active" id="pageStart">
+    <div class="title-wrap">
+      <div class="ink-seal">厄</div>
+      <div class="title">墨 厄</div>
+      <div class="subtitle">M O E</div>
+    </div>
+    <button class="start-btn" id="btnStart">开 始</button>
+    <div class="version">原型 v0.3 · 视觉增强版</div>
+  </section>
+
+  <!-- ============ 主菜单 ============ -->
+  <section class="page" id="pageMenu">
+    <div class="menu-title">墨 厄</div>
+    <div class="menu-sub">主 菜 单</div>
+    <div class="menu-list">
+      <div class="menu-item selected" data-menu="continue">继 续 游 戏<span class="hint">从篝火处苏醒</span></div>
+      <div class="menu-item" data-menu="newgame">新 的 旅 程<span class="hint">重新开始</span></div>
+      <div class="menu-item" data-menu="settings">设 置<span class="hint">难度 · 音量 · 操作</span></div>
+      <div class="menu-item" data-menu="quit">退 出 游 戏<span class="hint">返回标题页</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 篝火 ============ -->
+  <section class="page" id="pageBonfire">
+    <button class="bonfire-back" id="btnBonfireBack" type="button">‹ 返 回 主 菜 单</button>
+    <div class="bonfire-scene">
+      <div class="bonfire-mountains"></div>
+      <div class="bonfire-glow"></div>
+      <div class="bonfire-core">
+        <div class="bonfire-flame"></div>
+        <div class="bonfire-flame inner"></div>
+      </div>
+      <div class="bonfire-sword">
+        <div class="blade"></div>
+        <div class="guard"></div>
+        <div class="hilt"></div>
+      </div>
+    </div>
+    <div class="bonfire-panel">
+      <h2>篝 火</h2>
+      <div class="divider"></div>
+      <div class="bonfire-row" data-bonfire="heal">
+        <div><div class="label">休 息</div><div class="desc">回复全部气血，重置敌人</div></div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="bonfire-row" data-bonfire="equip">
+        <div><div class="label">装 备 · 护 符</div><div class="desc">更换武器与护符</div></div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="bonfire-row" data-bonfire="levelup">
+        <div><div class="label">墨 气 强 化</div><div class="desc">消耗墨气提升属性</div></div>
+        <div class="val" id="bonfireInk">墨气 0</div>
+      </div>
+      <div class="bonfire-row" data-bonfire="memory">
+        <div><div class="label">记 忆 录</div><div class="desc">回放已记录的敌人招式</div></div>
+        <div class="arrow">›</div>
+      </div>
+      <button class="bonfire-leave" id="btnLeaveBonfire">前 往 战 斗</button>
+    </div>
+  </section>
+
+  <!-- ============ 战斗 ============ -->
+  <section class="page" id="pageBattle">
+    <div id="battleStage">
+      <div class="scene-mountains"></div>
+      <div class="scene-trees" id="sceneTrees"></div>
+      <div class="scene-ground"></div>
+
+      <!-- 主角 -->
+      <div class="battle-entity" id="player" style="left:30%">
+        <div class="shadow"></div>
+        <div class="sprite-wrap">
+          <img id="playerSprite" alt="墨厄" src="">
+          <div class="eye-glow"></div>
+        </div>
+      </div>
+
+      <!-- 敌人 -->
+      <div class="battle-entity" id="enemy" style="left:70%">
+        <div class="shadow"></div>
+        <div class="body">
+          <div class="eye"><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="battleHud">
+      <div class="bar-row">
+        <span class="bar-label">气血</span>
+        <div class="bar-outer"><div class="bar-inner" id="hpBar"></div><span class="bar-text" id="hpText">100/100</span></div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">墨气</span>
+        <div class="bar-outer"><div class="bar-inner" id="inkBar" style="width:0%"></div><span class="bar-text" id="inkText">0/100</span></div>
+      </div>
+    </div>
+    <div id="modeTag" class="manual">手 动 模 式</div>
+    <div id="inkFullHint">墨 气 已 满 · 可 开 启 狂 化</div>
+    <div id="aiStatus"></div>
+
+    <div id="battleTopMenu">
+      <button class="menu-btn" id="btnBattleEquip">⚔</button>
+      <button class="menu-btn" id="btnBattleBonfire">🔥</button>
+      <button class="menu-btn" id="btnBattleMemory">📜</button>
+    </div>
+
+    <div id="parryFlash"></div>
+    <div id="parryText">弹 反</div>
+    <div id="rageTip">墨 厄 狂 化</div>
+
+    <div id="battleControls">
+      <div id="movePad">
+        <button class="move-btn" data-move="left">◀</button>
+        <button class="move-btn" data-move="right">▶</button>
+      </div>
+      <div id="actionPad">
+        <button class="act-btn" data-act="light">轻击</button>
+        <button class="act-btn" data-act="heavy">重击</button>
+        <button class="act-btn" data-act="dodge">闪避</button>
+        <button class="act-btn parry" data-act="parry">弹反</button>
+        <button class="act-btn" data-act="skill">技能</button>
+        <button class="act-btn rage" data-act="rage" id="rageBtn">狂化</button>
+      </div>
+    </div>
+
+    <button id="modeBtn">切换 · 墨卫自动</button>
+
+    <div id="deathOverlay">
+      <div class="death-title">陨 落</div>
+      <div class="death-info">
+        <div>损失墨气：<span id="lostInkVal">0</span></div>
+        <div>剩余墨气：<span id="remainInkVal">0</span></div>
+      </div>
+      <button class="death-btn" id="btnRevive">回 到 篝 火</button>
+    </div>
+  </section>
+
+  <!-- ============ 子面板 ============ -->
+  <div class="sub-panel" id="panelEquip">
+    <div class="sub-box">
+      <h3>装 备 · 护 符</h3>
+      <div class="sub-row">
+        <span class="name">武器</span>
+        <div class="opts">
+          <button class="opt-btn sel" data-weapon="longsword">长剑</button>
+          <button class="opt-btn" data-weapon="greatsword">重剑</button>
+          <button class="opt-btn" data-weapon="dagger">短刃</button>
+        </div>
+      </div>
+      <div class="sub-row">
+        <span class="name">护符</span>
+        <div class="opts">
+          <button class="opt-btn sel" data-charm="none">无</button>
+          <button class="opt-btn" data-charm="aggressive">强攻</button>
+          <button class="opt-btn" data-charm="defensive">守御</button>
+        </div>
+      </div>
+      <div class="sub-row">
+        <span class="name">AI 倾向</span>
+        <span class="name" id="aiTendency" style="color:#9a9488">均衡</span>
+      </div>
+      <button class="sub-close" data-close>关 闭</button>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="panelMemory">
+    <div class="sub-box">
+      <h3>记 忆 录</h3>
+      <div style="font-size:12px;line-height:2.2;color:#9a9488">
+        <div>· 敌人重击前摇：0.8s，弹反窗口 0.3s</div>
+        <div>· 敌人横扫：范围大，建议闪避</div>
+        <div>· BOSS 二阶段：攻击频率提升 40%</div>
+        <div style="margin-top:16px;color:#5a5448">挂机战斗时自动记录更多招式...</div>
+      </div>
+      <button class="sub-close" data-close>关 闭</button>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="panelSettings">
+    <div class="sub-box">
+      <h3>设 置</h3>
+      <div class="sub-row">
+        <span class="name">难度</span>
+        <input type="range" id="difficulty" min="50" max="150" value="100">
+        <span class="name" id="diffVal" style="color:#9a9488;min-width:44px;text-align:right">100%</span>
+      </div>
+      <div class="sub-row">
+        <span class="name">自动战斗速度</span>
+        <div class="opts">
+          <button class="opt-btn" data-speed="0.8">慢</button>
+          <button class="opt-btn sel" data-speed="1">中</button>
+          <button class="opt-btn" data-speed="1.3">快</button>
+        </div>
+      </div>
+      <div class="sub-row">
+        <span class="name">墨气满时提示</span>
+        <div class="opts">
+          <button class="opt-btn sel" data-hint="on">开</button>
+          <button class="opt-btn" data-hint="off">关</button>
+        </div>
+      </div>
+      <button class="sub-close" data-close>关 闭</button>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="panelLevelup">
+    <div class="sub-box">
+      <h3>墨 气 强 化</h3>
+      <div class="sub-row"><span class="name">气血上限 +10</span><button class="opt-btn" data-upgrade="hp">消耗 30</button></div>
+      <div class="sub-row"><span class="name">攻击力 +5%</span><button class="opt-btn" data-upgrade="atk">消耗 40</button></div>
+      <div class="sub-row"><span class="name">墨气获取 +10%</span><button class="opt-btn" data-upgrade="ink">消耗 35</button></div>
+      <div class="sub-row"><span class="name">当前墨气</span><span class="name" id="levelupInk" style="color:#b0b0e0">0</span></div>
+      <button class="sub-close" data-close>关 闭</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <div id="fade"></div>
+</div>
+
+<script src="js/core.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/battle.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
