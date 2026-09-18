@@ -36,6 +36,7 @@
       switch(key){
         case 'heal': showToast('气血已回满 · 敌人已重置'); break;
         case 'equip': openPanel('panelEquip'); break;
+        case 'charm': openPanel('panelEquip'); break;
         case 'levelup': refreshLevelupUI(); openPanel('panelLevelup'); break;
         case 'memory': openPanel('panelMemory'); break;
       }

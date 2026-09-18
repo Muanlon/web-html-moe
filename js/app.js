@@ -44,6 +44,10 @@
   refreshBonfireUI();
   updateTendency();
   buildScene();
+  const bonfireSprite = $('bonfireSprite');
+  const showBonfireSprite = ()=>bonfireSprite.parentElement.classList.add('sprite-ready');
+  bonfireSprite.addEventListener('load', showBonfireSprite);
+  if(bonfireSprite.complete && bonfireSprite.naturalWidth) showBonfireSprite();
 
   window.__MOE__ = {
     S, goto, showToast,

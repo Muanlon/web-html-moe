@@ -41,41 +41,50 @@
 
   <!-- ============ 篝火 ============ -->
   <section class="page" id="pageBonfire">
-    <button class="bonfire-back" id="btnBonfireBack" type="button">‹ 返 回 主 菜 单</button>
     <div class="bonfire-scene">
       <div class="bonfire-mountains"></div>
-      <div class="bonfire-glow"></div>
       <div class="bonfire-core">
+        <img class="bonfire-sprite" id="bonfireSprite"
+          src="assets/images/blazing-campfire.png" alt="燃烧的篝火动画">
         <div class="bonfire-flame"></div>
         <div class="bonfire-flame inner"></div>
-      </div>
-      <div class="bonfire-sword">
-        <div class="blade"></div>
-        <div class="guard"></div>
-        <div class="hilt"></div>
       </div>
     </div>
     <div class="bonfire-panel">
       <h2>篝 火</h2>
       <div class="divider"></div>
-      <div class="bonfire-row" data-bonfire="heal">
-        <div><div class="label">休 息</div><div class="desc">回复全部气血，重置敌人</div></div>
-        <div class="arrow">›</div>
+      <div class="bonfire-bracket left"></div>
+      <div class="bonfire-bracket right"></div>
+      <div class="bonfire-side left">
+        <div class="bonfire-row" data-bonfire="heal">
+          <div><div class="label">休 息</div><div class="desc">回复全部气血，重置敌人</div></div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="bonfire-row" data-bonfire="memory">
+          <div><div class="label">记 忆 录</div><div class="desc">回放已记录的敌人招式</div></div>
+          <div class="arrow">›</div>
+        </div>
+        <button class="bonfire-row bonfire-back" id="btnBonfireBack" type="button">
+          <div><div class="label">返 回 主 菜 单</div><div class="desc">离开篝火</div></div>
+          <div class="arrow">›</div>
+        </button>
       </div>
-      <div class="bonfire-row" data-bonfire="equip">
-        <div><div class="label">装 备 · 护 符</div><div class="desc">更换武器与护符</div></div>
-        <div class="arrow">›</div>
+      <div class="bonfire-side right">
+        <div class="bonfire-row" data-bonfire="equip">
+          <div><div class="label">装 备</div><div class="desc">更换当前武器</div></div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="bonfire-row" data-bonfire="charm">
+          <div><div class="label">护 符</div><div class="desc">更换护符效果</div></div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="bonfire-row" data-bonfire="levelup">
+          <div><div class="label">墨 气 强 化</div><div class="desc">消耗墨气提升属性</div></div>
+          <div class="val" id="bonfireInk">墨气 0</div>
+        </div>
       </div>
-      <div class="bonfire-row" data-bonfire="levelup">
-        <div><div class="label">墨 气 强 化</div><div class="desc">消耗墨气提升属性</div></div>
-        <div class="val" id="bonfireInk">墨气 0</div>
-      </div>
-      <div class="bonfire-row" data-bonfire="memory">
-        <div><div class="label">记 忆 录</div><div class="desc">回放已记录的敌人招式</div></div>
-        <div class="arrow">›</div>
-      </div>
-      <button class="bonfire-leave" id="btnLeaveBonfire">前 往 战 斗</button>
     </div>
+    <button class="bonfire-leave" id="btnLeaveBonfire">前 往 战 斗</button>
   </section>
 
   <!-- ============ 战斗 ============ -->
