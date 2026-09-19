@@ -29,7 +29,7 @@
   });
 
   /* ========== 篝火 ========== */
-  function refreshBonfireUI(){ $('bonfireInk').textContent = '墨气 ' + Math.floor(S.ink); }
+  function refreshBonfireUI(){ $('bonfireInk').textContent = Math.floor(S.ink); }
   document.querySelectorAll('[data-bonfire]').forEach(row=>{
     row.addEventListener('click', ()=>{
       const key = row.dataset.bonfire;

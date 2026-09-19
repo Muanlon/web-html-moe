@@ -46,8 +46,12 @@
   buildScene();
   const bonfireSprite = $('bonfireSprite');
   const showBonfireSprite = ()=>bonfireSprite.parentElement.classList.add('sprite-ready');
-  bonfireSprite.addEventListener('load', showBonfireSprite);
-  if(bonfireSprite.complete && bonfireSprite.naturalWidth) showBonfireSprite();
+  const bonfireImage = new Image();
+  bonfireImage.addEventListener('load', ()=>{
+    bonfireSprite.style.backgroundImage = `url("${bonfireImage.src}")`;
+    showBonfireSprite();
+  });
+  bonfireImage.src = bonfireSprite.dataset.src;
 
   window.__MOE__ = {
     S, goto, showToast,
